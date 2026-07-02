@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MED-CARE | المنصة الطبية المتكاملة</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MED-CARE منصة طبية متكاملة تقدم خدمات صحية متميزة مع إمكانية الحجز الإلكتروني والاستشارات عن بُعد." />
+    <meta name="keywords" content="عيادة, طبيب, حجز موعد, استشارة طبية, صحة, علاج" />
+    <meta property="og:title" content="MED-CARE | المنصة الطبية المتكاملة" />
+    <meta property="og:description" content="خدمات طبية متكاملة بأحدث التقنيات وأفضل الكوادر." />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        /* ===== CSS متكامل مع جميع التحسينات ===== */
+        :root {
+            --primary: #007bff;
+            --primary-dark: #0056b3;
+            --secondary: #0d9488;
+            --secondary-light: #14b8a6;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-dark: #1a202c;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --text-light: #a0aec0;
+            --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 25px 50px -12px rgba(0, 123, 255, 0.2);
+            --radius: 28px;
+            --radius-sm: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            --bg-white: #1a202c;
+            --bg-light: #2d3748;
+            --text-dark: #e2e8f0;
+            --text-gray: #cbd5e0;
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .navbar,
+        body.dark-mode .footer {
+            background-color: #2d3748 !important;
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .booking-form,
+        body.dark-mode .testimonial-card,
+        body.dark-mode .doctor-card,
+        body.dark-mode .blog-card,
+        body.dark-mode .faq-item,
+        body.dark-mode .chat-window,
+        body.dark-mode .modal-content,
+        body.dark-mode .dashboard-card,
+        body.dark-mode .blog-detail-modal {
+            background-color: #2d3748 !important;
+            border-color: #4a5568 !important;
+        }
+
+        body.dark-mode .form-control {
+            background-color: #4a5568;
+            color: #edf2f7;
+            border-color: #718096;
+        }
+
+        body.dark-mode .filter-btn {
+            background-color: #4a5568;
+            color: #e2e8f0;
+            border-color: #718096;
+        }
+
+        body.dark-mode .filter-btn.active {
+            background-color: var(--secondary);
+            color: #fff;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(26, 32, 44, 0.95) !important;
+        }
+
+        body.dark-mode .booking-section,
+        body.dark-mode .services,
+        body.dark-mode .testimonials,
+        body.dark-mode .faq {
+            background-color: #1a202c !important;
+        }
+
+        [data-aos] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        [data-aos].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== شريط التنقل ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            padding: 10px 0;
+            transition: var(--transition);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .logo i {
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 40px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            background: rgba(0, 123, 255, 0.08);
+        }
+
+        .nav-links .dropdown {
+            position: relative;
+        }
+
+        .nav-links .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            min-width: 200px;
+            padding: 8px 0;
+            display: none;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .dropdown-menu {
+            background: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .nav-links .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            border-radius: 0;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            border-radius: 40px;
+            padding: 4px 16px;
+            transition: var(--transition);
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 8px 12px;
+            outline: none;
+            font-family: inherit;
+            color: var(--text-dark);
+            width: 150px;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            width: 200px;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        .btn-cta {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+        }
+
+        .dark-toggle {
+            background: var(--bg-light);
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .dark-toggle:hover {
+            background: var(--gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+        }
+
+        /* ===== القسم الرئيسي ===== */
+        .hero {
+            padding: 120px 0 80px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-text {
+            flex: 1 1 45%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin: 20px 0 32px;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin: 32px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            padding: 16px 38px;
+            border-radius: 50px;
+            font-weight: 800;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(13, 148, 136, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn-outline:hover {
+            background: var(--gradient);
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            flex: 1 1 45%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-image .floating-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--bg-white);
+            padding: 16px 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ===== قسم الخدمات ===== */
+        .services {
+            padding: 80px 0;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .filter-btn.active {
+            background: var(--gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .filter-btn:hover {
+            background: var(--gradient);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            border: 1px solid #edf2f7;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .card .icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 16px;
+            display: inline-block;
+            background: rgba(13, 148, 136, 0.1);
+            padding: 16px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .card:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card .rating {
+            color: #f6ad55;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+
+        .card .price {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .card .book-btn {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            margin-top: 12px;
+        }
+
+        .card .book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(13, 148, 136, 0.3);
+        }
+
+        .card.hidden-card {
+            display: none;
+        }
+
+        /* ===== قسم الأطباء ===== */
+        .doctors {
+            padding: 80px 0;
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .doctor-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            border: 1px solid #edf2f7;
+            text-align: center;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .doctor-card .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding-top: 100%;
+        }
+
+        .doctor-card .image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover .image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .doctor-card .image-wrapper .availability {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: var(--secondary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .doctor-card .info {
+            padding: 20px;
+        }
+
+        .doctor-card .info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .doctor-card .info .specialty {
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .doctor-card .info .experience {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        .doctor-card .info .rating {
+            color: #f6ad55;
+            margin: 8px 0;
+        }
+
+        .doctor-card .info .btn-book {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            margin-top: 8px;
+        }
+
+        .doctor-card .info .btn-book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(13, 148, 136, 0.3);
+        }
+
+        /* ===== الشهادات ===== */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .testimonials-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            border: 1px solid #edf2f7;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .testimonial-card .stars {
+            color: #f6ad55;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card .text {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 16px;
+        }
+
+        .testimonial-card .patient {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-card .patient img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-card .patient .name {
+            font-weight: 700;
+        }
+
+        .testimonial-card .patient .role {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        /* ===== نموذج الحجز ===== */
+        .booking-section {
+            padding: 80px 0;
+            background: var(--bg-white);
+            transition: var(--transition);
+        }
+
+        .booking-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .booking-form {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+        }
+
+        .booking-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .booking-form .form-group {
+            margin-bottom: 16px;
+        }
+
+        .booking-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .booking-form .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .booking-form .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+        }
+
+        .booking-form .error-msg {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .booking-form .error-msg.show {
+            display: block;
+        }
+
+        .booking-form .success-msg {
+            background: var(--secondary);
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 40px;
+            text-align: center;
+            font-weight: 700;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .booking-form .success-msg.show {
+            display: block;
+        }
+
+        .btn-submit {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+        }
+
+        .booking-info {
+            padding: 40px;
+        }
+
+        .booking-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .booking-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: var(--text-gray);
+        }
+
+        .booking-info .info-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .booking-info .map-container {
+            margin-top: 20px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 200px;
+            background: #e2e8f0;
+        }
+
+        .booking-info .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== الأسئلة الشائعة ===== */
+        .faq {
+            padding: 80px 0;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .faq-item {
+            background: var(--bg-white);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #edf2f7;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 24px;
+            color: var(--text-gray);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 24px 24px;
+        }
+
+        /* ===== المدونة المحسّنة ===== */
+        .blog {
+            padding: 80px 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            border: 1px solid #edf2f7;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .blog-card .image-wrapper {
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .blog-card .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .blog-card .content {
+            padding: 24px;
+        }
+
+        .blog-card .content .tag {
+            display: inline-block;
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .blog-card .content .meta {
+            display: flex;
+            gap: 16px;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-card .content .meta i {
+            margin-left: 4px;
+        }
+
+        .blog-card .content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .blog-card .content .excerpt {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-card .content .read-more {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .blog-card .content .read-more:hover {
+            color: var(--secondary);
+            transform: translateX(-4px);
+        }
+
+        /* ===== مودال تفاصيل المدونة ===== */
+        .blog-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .blog-detail-modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .blog-detail-content {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .blog-detail-content .close-detail {
+            position: sticky;
+            top: 0;
+            float: left;
+            background: var(--bg-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            z-index: 10;
+        }
+
+        .blog-detail-content .close-detail:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .blog-detail-content .detail-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+        }
+
+        .blog-detail-content .detail-tag {
+            display: inline-block;
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .blog-detail-content .detail-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .blog-detail-content .detail-meta i {
+            margin-left: 6px;
+        }
+
+        .blog-detail-content h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .blog-detail-content .detail-body {
+            color: var(--text-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .blog-detail-content .detail-body p {
+            margin-bottom: 16px;
+        }
+
+        .blog-detail-content .detail-body ul,
+        .blog-detail-content .detail-body ol {
+            margin-right: 20px;
+            margin-bottom: 16px;
+        }
+
+        .blog-detail-content .detail-body li {
+            margin-bottom: 8px;
+        }
+
+        .blog-detail-content .detail-share {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .blog-detail-content .detail-share span {
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        .blog-detail-content .detail-share a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .blog-detail-content .detail-share a:hover {
+            transform: translateY(-3px);
+        }
+
+        .blog-detail-content .detail-share .twitter { background: #1da1f2; }
+        .blog-detail-content .detail-share .facebook { background: #1877f2; }
+        .blog-detail-content .detail-share .whatsapp { background: #25d366; }
+        .blog-detail-content .detail-share .linkedin { background: #0a66c2; }
+
+        /* ===== شات مباشر ===== */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .chat-toggle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 123, 255, 0.3);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 340px;
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            display: none;
+            border: 1px solid #edf2f7;
+        }
+
+        .chat-window.open {
+            display: block;
+        }
+
+        .chat-window .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .chat-window .close-chat {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-gray);
+        }
+
+        .chat-window .messages {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+
+        .chat-window .message {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            max-width: 80%;
+        }
+
+        .chat-window .message.bot {
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .chat-window .message.user {
+            background: var(--gradient);
+            color: #fff;
+            margin-right: auto;
+        }
+
+        .chat-window .chat-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-window .chat-input input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+            outline: none;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .chat-window .chat-input button {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-window .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== زر العودة للأعلى ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
+            transition: var(--transition);
+            display: none;
+            z-index: 998;
+        }
+
+        .back-to-top.show {
+            display: block;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== تذييل الصفحة ===== */
+        .footer {
+            background: var(--bg-light);
+            padding: 60px 0 30px;
+            transition: var(--transition);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer h4 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            text-decoration: none;
+            color: var(--text-gray);
+            transition: var(--transition);
+        }
+
+        .footer ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer .newsletter input {
+            padding: 12px 16px;
+            border-radius: 40px;
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            font-family: inherit;
+            margin-bottom: 8px;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .footer .newsletter button {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .footer .newsletter button:hover {
+            transform: scale(1.02);
+        }
+
+        .footer .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer .social-icons a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            transition: var(--transition);
+            text-decoration: none;
+            border: 1px solid #e2e8f0;
+        }
+
+        .footer .social-icons a:hover {
+            background: var(--gradient);
+            color: #fff;
+            transform: translateY(-4px);
+            border-color: transparent;
+        }
+
+        .footer-copy {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* ===== المودال ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 16px;
+        }
+
+        .modal-content .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .modal-content .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+        }
+
+        .modal-content .btn-modal {
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .modal-content .btn-modal:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-content .close-modal {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-gray);
+        }
+
+        .modal-content {
+            position: relative;
+        }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 1200px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .hero-image img {
+                height: 350px;
+            }
+
+            .booking-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-info {
+                padding: 0;
+            }
+
+            .booking-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                padding: 16px 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .search-box input {
+                width: 100px;
+            }
+
+            .search-box input:focus {
+                width: 120px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .cards-grid,
+            .doctors-grid,
+            .testimonials-slider,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image img {
+                height: 280px;
+            }
+
+            .floating-badge {
+                display: none !important;
+            }
+
+            .chat-window {
+                width: 280px;
+                right: -20px;
+            }
+
+            .blog-detail-content {
+                padding: 20px;
+            }
+
+            .blog-detail-content .detail-image {
+                height: 200px;
+            }
+
+            .blog-detail-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn-cta {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .booking-form {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== شريط التنقل ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo"><i class="fas fa-stethoscope"></i> MED<span>-CARE</span></a>
+            <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="active">الرئيسية</a></li>
+                <li class="dropdown">
+                    <a href="#services">خدماتنا <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#services" data-filter="dentistry">طب الأسنان</a>
+                        <a href="#services" data-filter="general">الرعاية العامة</a>
+                        <a href="#services" data-filter="checkup">الفحوصات الشاملة</a>
+                        <a href="#services" data-filter="pediatrics">طب الأطفال</a>
+                    </div>
+                </li>
+                <li><a href="#doctors">الأطباء</a></li>
+                <li><a href="#booking">احجز الآن</a></li>
+                <li><a href="#blog">المدونة</a></li>
+                <li><a href="#" id="loginBtn"><i class="fas fa-user"></i> تسجيل الدخول</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="بحث..." id="searchInput" />
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="btn-cta"><i class="fas fa-phone-alt"></i> اتصل بنا</button>
+                <button class="dark-toggle" id="darkToggle">
+                    <i class="fas fa-moon"></i> <span id="darkLabel">داكن</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== مودال تسجيل الدخول ===== -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2 id="authTitle">تسجيل الدخول</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="authEmail" placeholder="البريد الإلكتروني" required />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="authPassword" placeholder="كلمة المرور" required />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="authName" placeholder="الاسم الكامل (للتسجيل)" style="display:none;" />
+                </div>
+                <button type="submit" class="btn-modal" id="authSubmitBtn">تسجيل الدخول</button>
+                <p style="text-align:center;margin-top:12px;">
+                    <a href="#" id="toggleAuth" style="color:var(--primary);text-decoration:none;font-weight:600;">
+                        ليس لديك حساب؟ سجل الآن
+                    </a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== مودال تفاصيل المدونة ===== -->
+    <div class="blog-detail-modal" id="blogDetailModal">
+        <div class="blog-detail-content" id="blogDetailContent">
+            <button class="close-detail" id="closeBlogDetail"><i class="fas fa-times"></i></button>
+            <img src="" alt="تفاصيل المقال" id="detailImage" class="detail-image" />
+            <span class="detail-tag" id="detailTag"></span>
+            <div class="detail-meta">
+                <span><i class="fas fa-calendar-alt"></i> <span id="detailDate"></span></span>
+                <span><i class="fas fa-clock"></i> <span id="detailReadTime"></span></span>
+                <span><i class="fas fa-user"></i> <span id="detailAuthor"></span></span>
+            </div>
+            <h2 id="detailTitle"></h2>
+            <div class="detail-body" id="detailBody"></div>
+            <div class="detail-share">
+                <span><i class="fas fa-share-alt"></i> شارك المقال:</span>
+                <a href="#" class="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== القسم الرئيسي ===== -->
+    <section class="hero" id="hero">
+        <div class="container" style="display:flex;flex-wrap:wrap;gap:40px;width:100%;">
+            <div class="hero-text" data-aos="fade-up">
+                <div class="badge"><i class="fas fa-star"></i> عيادة معتمدة دولياً</div>
+                <h1>رعايتكم الصحية هي أولويتنا القصوى</h1>
+                <p>نقدم خدمات طبية متكاملة بأحدث التقنيات وأفضل الكوادر الطبية، لضمان صحتكم وراحتكم الدائمة.</p>
+                <div class="hero-stats">
+                    <div class="stat-item" data-count="15000">
+                        <span class="number" id="statPatients">0</span>
+                        <span class="label">مرضى سعداء</span>
+                    </div>
+                    <div class="stat-item" data-count="98">
+                        <span class="number" id="statSuccess">0</span>
+                        <span class="label">% نجاح العمليات</span>
+                    </div>
+                    <div class="stat-item" data-count="25">
+                        <span class="number" id="statExperience">0</span>
+                        <span class="label">سنوات خبرة</span>
+                    </div>
+                </div>
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-calendar-check"></i> احجز موعدك الآن
+                    </button>
+                    <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+                        استكشف خدماتنا
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left">
+                <img src="images/doctor-hero.jpg" alt="طبيب محترف" onerror="this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&h=600&fit=crop&crop=face'" />
+                <div class="floating-badge">
+                    <i class="fas fa-check-circle" style="color:var(--secondary);font-size:1.5rem;"></i>
+                    <div>
+                        <strong>مواعيد متاحة</strong>
+                        <div style="font-size:0.85rem;color:var(--text-gray);">احجز الآن بسهولة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== قسم الخدمات ===== -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">خدماتنا الطبية</h2>
+            <p class="section-sub" data-aos="fade-up">اختر التخصص المناسب لاحتياجاتك</p>
+            <div class="filters" id="filterContainer" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="dentistry">طب الأسنان</button>
+                <button class="filter-btn" data-filter="general">الرعاية العامة</button>
+                <button class="filter-btn" data-filter="checkup">الفحوصات الشاملة</button>
+                <button class="filter-btn" data-filter="pediatrics">طب الأطفال</button>
+            </div>
+            <div class="cards-grid" id="cardsGrid" data-aos="fade-up">
+                <div class="card" data-category="dentistry">
+                    <div class="icon"><i class="fas fa-tooth"></i></div>
+                    <h3>طب الأسنان</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.8</div>
+                    <p>زراعة، تقويم، تبييض بأحدث الوسائل.</p>
+                    <div class="price">من 500 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+                <div class="card" data-category="general">
+                    <div class="icon"><i class="fas fa-user-md"></i></div>
+                    <h3>الرعاية العامة</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0</div>
+                    <p>فحوصات دورية واستشارات طبية شاملة.</p>
+                    <div class="price">من 300 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+                <div class="card" data-category="checkup">
+                    <div class="icon"><i class="fas fa-flask"></i></div>
+                    <h3>الفحوصات الشاملة</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.9</div>
+                    <p>تحاليل دقيقة وأشعة متطورة.</p>
+                    <div class="price">من 800 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+                <div class="card" data-category="pediatrics">
+                    <div class="icon"><i class="fas fa-baby"></i></div>
+                    <h3>طب الأطفال</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.9</div>
+                    <p>رعاية متكاملة من الولادة حتى المراهقة.</p>
+                    <div class="price">من 400 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+                <div class="card" data-category="dentistry">
+                    <div class="icon"><i class="fas fa-smile"></i></div>
+                    <h3>تجميل الأسنان</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.7</div>
+                    <p>ابتسامة مشرقة بتقنيات حديثة.</p>
+                    <div class="price">من 1200 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+                <div class="card" data-category="general">
+                    <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3>صحة القلب</h3>
+                    <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.9</div>
+                    <p>استشارات قلبية وعلاجات وقائية.</p>
+                    <div class="price">من 600 ر.س</div>
+                    <button class="book-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز الآن</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== قسم الأطباء ===== -->
+    <section class="doctors" id="doctors">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">أطباؤنا المتميزون</h2>
+            <p class="section-sub" data-aos="fade-up">نخبة من أفضل الكوادر الطبية</p>
+            <div class="doctors-grid" data-aos="fade-up">
+                <div class="doctor-card">
+                    <div class="image-wrapper">
+                        <img src="images/doctor-ahmed.jpg" alt="دكتور أحمد المنصور" onerror="this.src='https://images.unsplash.com/photo-1612349317150-e413f6a5b16c?w=400&h=400&fit=crop'" />
+                        <span class="availability"><i class="fas fa-circle" style="color:#48bb78;"></i> متاح</span>
+                    </div>
+                    <div class="info">
+                        <h3>د. أحمد المنصور</h3>
+                        <div class="specialty">استشاري جراحة الأسنان</div>
+                        <div class="experience"><i class="fas fa-briefcase"></i> 15 سنة خبرة</div>
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.9</div>
+                        <button class="btn-book" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز معه</button>
+                    </div>
+                </div>
+                <div class="doctor-card">
+                    <div class="image-wrapper">
+                        <img src="images/doctor-sarah.jpg" alt="دكتورة سارة الفهد" onerror="this.src='https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop'" />
+                        <span class="availability"><i class="fas fa-circle" style="color:#48bb78;"></i> متاحة</span>
+                    </div>
+                    <div class="info">
+                        <h3>د. سارة الفهد</h3>
+                        <div class="specialty">استشارية طب الأطفال</div>
+                        <div class="experience"><i class="fas fa-briefcase"></i> 12 سنة خبرة</div>
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0</div>
+                        <button class="btn-book" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز معها</button>
+                    </div>
+                </div>
+                <div class="doctor-card">
+                    <div class="image-wrapper">
+                        <img src="images/doctor-khaled.jpg" alt="دكتور خالد العتيبي" onerror="this.src='https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop'" />
+                        <span class="availability"><i class="fas fa-circle" style="color:#48bb78;"></i> متاح</span>
+                    </div>
+                    <div class="info">
+                        <h3>د. خالد العتيبي</h3>
+                        <div class="specialty">استشاري أمراض القلب</div>
+                        <div class="experience"><i class="fas fa-briefcase"></i> 18 سنة خبرة</div>
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.8</div>
+                        <button class="btn-book" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز معه</button>
+                    </div>
+                </div>
+                <div class="doctor-card">
+                    <div class="image-wrapper">
+                        <img src="images/doctor-nora.jpg" alt="دكتورة نورة القحطاني" onerror="this.src='https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'" />
+                        <span class="availability"><i class="fas fa-circle" style="color:#48bb78;"></i> متاحة</span>
+                    </div>
+                    <div class="info">
+                        <h3>د. نورة القحطاني</h3>
+                        <div class="specialty">استشارية الأشعة</div>
+                        <div class="experience"><i class="fas fa-briefcase"></i> 10 سنوات خبرة</div>
+                        <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 4.7</div>
+                        <button class="btn-book" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">احجز معها</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== الشهادات ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">آراء مرضانا</h2>
+            <p class="section-sub" data-aos="fade-up">ما يقوله المرضى عن تجربتهم معنا</p>
+            <div class="testimonials-slider" data-aos="fade-up">
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="text">"أفضل عيادة زرتها في الرياض، فريق محترف وخدمة ممتازة. أنصح الجميع بزيارتهم."</div>
+                    <div class="patient">
+                        <img src="images/patient-1.jpg" alt="مريض" onerror="this.src='https://randomuser.me/api/portraits/men/32.jpg'" />
+                        <div>
+                            <div class="name">محمد السعيد</div>
+                            <div class="role">مريض</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="text">"الدكتورة سارة كانت رائعة مع ابني، تعاملها حنون ومهني جداً. شكراً لكم."</div>
+                    <div class="patient">
+                        <img src="images/patient-2.jpg" alt="مريضة" onerror="this.src='https://randomuser.me/api/portraits/women/44.jpg'" />
+                        <div>
+                            <div class="name">نورة الحمد</div>
+                            <div class="role">أم مريض</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <div class="text">"خدمات متكاملة وتقنيات حديثة، أنصح بزيارتهم لكل من يبحث عن التميز الطبي."</div>
+                    <div class="patient">
+                        <img src="images/patient-3.jpg" alt="مريض" onerror="this.src='https://randomuser.me/api/portraits/men/45.jpg'" />
+                        <div>
+                            <div class="name">عبدالله الفهد</div>
+                            <div class="role">مريض</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== نموذج الحجز ===== -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">حجز موعد</h2>
+            <p class="section-sub" data-aos="fade-up">املأ البيانات وسنقوم بالتواصل معك لتأكيد الموعد</p>
+            <div class="booking-wrapper" data-aos="fade-up">
+                <div class="booking-form" id="bookingFormWrapper">
+                    <form id="bookingForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                                <input type="text" class="form-control" id="fullName" placeholder="أدخل اسمك الكامل" required />
+                                <div class="error-msg" id="nameError">الاسم مطلوب</div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                                <input type="text" class="form-control" id="phone" placeholder="05xxxxxxxx" required />
+                                <div class="error-msg" id="phoneError">رقم هاتف صحيح مطلوب (10 أرقام)</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="email" placeholder="example@domain.com" required />
+                            <div class="error-msg" id="emailError">بريد إلكتروني صحيح مطلوب</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user-md"></i> اختيار التخصص</label>
+                                <select class="form-control" id="specialty" required>
+                                    <option value="">-- اختر --</option>
+                                    <option value="dentistry">طب الأسنان</option>
+                                    <option value="general">الرعاية العامة</option>
+                                    <option value="checkup">الفحوصات الشاملة</option>
+                                    <option value="pediatrics">طب الأطفال</option>
+                                </select>
+                                <div class="error-msg" id="specialtyError">يرجى اختيار تخصص</div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar"></i> اختيار الطبيب</label>
+                                <select class="form-control" id="doctorSelect">
+                                    <option value="">-- اختر --</option>
+                                    <option value="د. أحمد المنصور">د. أحمد المنصور</option>
+                                    <option value="د. سارة الفهد">د. سارة الفهد</option>
+                                    <option value="د. خالد العتيبي">د. خالد العتيبي</option>
+                                    <option value="د. نورة القحطاني">د. نورة القحطاني</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> التاريخ والوقت</label>
+                            <input type="datetime-local" class="form-control" id="appointmentTime" required />
+                            <div class="error-msg" id="timeError">يرجى تحديد تاريخ ووقت</div>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fas fa-calendar-check"></i> إرسال الطلب</button>
+                        <div class="success-msg" id="successMsg"><i class="fas fa-check-circle"></i> تم إرسال طلبك بنجاح! سنتواصل معكم قريباً.</div>
+                    </form>
+                </div>
+                <div class="booking-info">
+                    <h3>معلومات الاتصال</h3>
+                    <div class="info-item"><i class="fas fa-phone"></i> +966 12 345 6789</div>
+                    <div class="info-item"><i class="fas fa-envelope"></i> info@med-care.com</div>
+                    <div class="info-item"><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</div>
+                    <div class="info-item"><i class="fas fa-clock"></i> السبت - الخميس: 8 صباحاً - 10 مساءً</div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7247.398892096958!2d46.6751!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f0382d8e1b3f3%3A0x9e8f5b3a1e2d4c5b!2sRiyadh%20Saudi%20Arabia!5e0!3m2!1sen!2ssa!4v1700000000000" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== الأسئلة الشائعة ===== -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">الأسئلة الشائعة</h2>
+            <p class="section-sub" data-aos="fade-up">إجابات لأكثر الأسئلة التي تطرحها</p>
+            <div data-aos="fade-up">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>كيف يمكنني حجز موعد؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">يمكنك حجز موعد بسهولة من خلال ملء النموذج في قسم "احجز الآن" وسنقوم بالتواصل معك لتأكيد الموعد.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>ما هي ساعات العمل؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">نحن نعمل من السبت إلى الخميس من الساعة 8 صباحاً حتى 10 مساءً، والجمعة عطلة.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>هل تقبلون التأمين الصحي؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">نعم، نقبل معظم شركات التأمين الصحي المعتمدة في المملكة. يرجى التواصل معنا للاستفسار عن شركتك.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>كيف يمكنني إلغاء أو تعديل موعدي؟</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">يمكنك الاتصال بنا على الرقم الموجود في الموقع أو إرسال بريد إلكتروني لإلغاء أو تعديل موعدك.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== المدونة المحسّنة ===== -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">المدونة الطبية</h2>
+            <p class="section-sub" data-aos="fade-up">أحدث المقالات والنصائح الصحية</p>
+            <div class="blog-grid" id="blogGrid" data-aos="fade-up">
+                <!-- سيتم إنشاء البطاقات عبر JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== تذييل الصفحة ===== -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4><i class="fas fa-stethoscope"></i> MED-CARE</h4>
+                    <p style="color:var(--text-gray);">نقدم أفضل الخدمات الطبية بأحدث التقنيات وأفضل الكوادر.</p>
+                    <div class="social-icons" style="margin-top:16px;">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#hero">الرئيسية</a></li>
+                        <li><a href="#services">خدماتنا</a></li>
+                        <li><a href="#doctors">الأطباء</a></li>
+                        <li><a href="#booking">احجز الآن</a></li>
+                        <li><a href="#blog">المدونة</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>الخدمات</h4>
+                    <ul>
+                        <li><a href="#services" data-filter="dentistry">طب الأسنان</a></li>
+                        <li><a href="#services" data-filter="general">الرعاية العامة</a></li>
+                        <li><a href="#services" data-filter="checkup">الفحوصات الشاملة</a></li>
+                        <li><a href="#services" data-filter="pediatrics">طب الأطفال</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>النشرة البريدية</h4>
+                    <div class="newsletter">
+                        <p style="color:var(--text-gray);font-size:0.9rem;">اشترك لتصلك آخر العروض والمقالات.</p>
+                        <input type="email" placeholder="بريدك الإلكتروني" id="newsletterEmail" />
+                        <button onclick="subscribeNewsletter()">اشترك الآن</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 MED-CARE. جميع الحقوق محفوظة. 
+                <span style="color:var(--text-gray);">| <a href="#" style="color:var(--text-gray);text-decoration:none;">سياسة الخصوصية</a> | <a href="#" style="color:var(--text-gray);text-decoration:none;">الشروط والأحكام</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== شات مباشر ===== -->
+    <div class="chat-widget">
+        <button class="chat-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
+        <div class="chat-window" id="chatWindow">
+            <div class="header">
+                <span><i class="fas fa-headset" style="color:var(--primary);"></i> الدعم الفني</span>
+                <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="messages" id="chatMessages">
+                <div class="message bot">مرحباً! كيف يمكنني مساعدتك اليوم؟</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
+                <button id="sendChat"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== زر العودة للأعلى ===== -->
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- ===== جافاسكريبت متكامل ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // تهيئة AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // ===== بيانات المدونة =====
+        const blogPosts = [{
+            id: 1,
+            title: 'نصائح للحفاظ على صحة الأسنان',
+            tag: 'طب الأسنان',
+            excerpt: 'تعرف على أفضل الطرق للعناية بأسنانك وتجنب التسوس وأمراض اللثة. نقدم لك دليلاً شاملاً للحفاظ على ابتسامة صحية وجميلة.',
+            image: 'images/blog-dental.jpg',
+            date: '2026-06-28',
+            readTime: '5 دقائق',
+            author: 'د. أحمد المنصور',
+            content: `
+                <p>صحة الأسنان هي جزء أساسي من الصحة العامة. الكثير منا يهمل العناية بأسنانه مما يؤدي إلى مشاكل صحية خطيرة.</p>
+                <p><strong>نصائح مهمة للحفاظ على صحة الأسنان:</strong></p>
+                <ul>
+                    <li><strong>التنظيف المنتظم:</strong> اغسل أسنانك مرتين يومياً على الأقل باستخدام معجون أسنان يحتوي على الفلورايد.</li>
+                    <li><strong>استخدام الخيط:</strong> استخدم خيط الأسنان يومياً لإزالة البقايا العالقة بين الأسنان.</li>
+                    <li><strong>زيارة الطبيب:</strong> قم بزيارة طبيب الأسنان كل 6 أشهر للفحص الدوري والتنظيف المهني.</li>
+                    <li><strong>تجنب السكريات:</strong> قلل من تناول المشروبات الغازية والحلويات التي تسبب تسوس الأسنان.</li>
+                    <li><strong>استخدام غسول الفم:</strong> استخدم غسول الفم المضاد للبكتيريا للحفاظ على نظافة الفم.</li>
+                </ul>
+                <p>تذكر أن الوقاية خير من العلاج، والعناية المنتظمة بأسنانك توفر عليك الكثير من الألم والمصاريف.</p>
+            `
+        }, {
+            id: 2,
+            title: 'أهمية الفحوصات الدورية للقلب',
+            tag: 'صحة القلب',
+            excerpt: 'اكتشف لماذا تعتبر الفحوصات المنتظمة للقلب ضرورية للحفاظ على صحتك والوقاية من الأمراض القلبية.',
+            image: 'images/blog-heart.jpg',
+            date: '2026-06-25',
+            readTime: '7 دقائق',
+            author: 'د. خالد العتيبي',
+            content: `
+                <p>أمراض القلب هي السبب الرئيسي للوفاة في العالم. ولكن الكثير من هذه الحالات يمكن الوقاية منها من خلال الفحوصات الدورية.</p>
+                <p><strong>لماذا الفحوصات الدورية مهمة؟</strong></p>
+                <ul>
+                    <li><strong>الكشف المبكر:</strong> تساعد الفحوصات في اكتشاف مشاكل القلب في مراحلها المبكرة عندما تكون قابلة للعلاج.</li>
+                    <li><strong>مراقبة ضغط الدم:</strong> ارتفاع ضغط الدم هو عامل خطر رئيسي لأمراض القلب.</li>
+                    <li><strong>فحص الكوليسترول:</strong> مستويات الكوليسترول المرتفعة تزيد من خطر الإصابة بأمراض القلب.</li>
+                    <li><strong>تقييم نمط الحياة:</strong> تساعد الفحوصات في تقييم تأثير نمط حياتك على صحة قلبك.</li>
+                </ul>
+                <p>لا تنتظر ظهور الأعراض، قم بإجراء فحص دوري للقلب اليوم واطمئن على صحتك.</p>
+            `
+        }, {
+            id: 3,
+            title: 'تغذية الأطفال في مراحل النمو',
+            tag: 'طب الأطفال',
+            excerpt: 'دليل شامل لأفضل الأطعمة التي تدعم نمو طفلك وتطوره الصحي خلال المراحل العمرية المختلفة.',
+            image: 'images/blog-pediatric.jpg',
+            date: '2026-06-22',
+            readTime: '6 دقائق',
+            author: 'د. سارة الفهد',
+            content: `
+                <p>التغذية السليمة في مرحلة الطفولة هي أساس النمو الصحي والتطور العقلي والجسدي. يحتاج الأطفال إلى نظام غذائي متوازن يحتوي على جميع العناصر الغذائية.</p>
+                <p><strong>نصائح لتغذية صحية للأطفال:</strong></p>
+                <ul>
+                    <li><strong>الرضاعة الطبيعية:</strong> تعتبر أفضل غذاء للرضع خلال الأشهر الستة الأولى.</li>
+                    <li><strong>التنوع الغذائي:</strong> قدم لطفلك مجموعة متنوعة من الأطعمة من جميع المجموعات الغذائية.</li>
+                    <li><strong>الخضروات والفواكه:</strong> شجع طفلك على تناول 5 حصص من الخضروات والفواكه يومياً.</li>
+                    <li><strong>البروتينات:</strong> تأكد من حصول طفلك على كميات كافية من البروتينات من مصادر صحية.</li>
+                    <li><strong>الحد من السكريات:</strong> قلل من تناول الحلويات والمشروبات السكرية التي تسبب السمنة وتسوس الأسنان.</li>
+                </ul>
+                <p>تذكر أن عادات الأكل الصحية التي تزرعها في طفلك اليوم سترافقه طوال حياته.</p>
+            `
+        }];
+
+        // ===== عرض المدونة =====
+        function renderBlog() {
+            const grid = document.getElementById('blogGrid');
+            grid.innerHTML = blogPosts.map(post => `
+                <div class="blog-card">
+                    <div class="image-wrapper">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop'" />
+                    </div>
+                    <div class="content">
+                        <span class="tag">${post.tag}</span>
+                        <div class="meta">
+                            <span><i class="fas fa-calendar-alt"></i> ${formatDate(post.date)}</span>
+                            <span><i class="fas fa-clock"></i> ${post.readTime}</span>
+                        </div>
+                        <h3>${post.title}</h3>
+                        <div class="excerpt">${post.excerpt}</div>
+                        <button class="read-more" onclick="openBlogDetail(${post.id})">
+                            اقرأ المزيد <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // ===== فتح تفاصيل المدونة =====
+        function openBlogDetail(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+
+            const modal = document.getElementById('blogDetailModal');
+            document.getElementById('detailImage').src = post.image;
+            document.getElementById('detailImage').alt = post.title;
+            document.getElementById('detailTag').textContent = post.tag;
+            document.getElementById('detailDate').textContent = formatDate(post.date);
+            document.getElementById('detailReadTime').textContent = post.readTime;
+            document.getElementById('detailAuthor').textContent = post.author;
+            document.getElementById('detailTitle').textContent = post.title;
+            document.getElementById('detailBody').innerHTML = post.content;
+
+            // تحديث روابط المشاركة
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(post.title);
+            document.querySelector('.detail-share .twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            document.querySelector('.detail-share .facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            document.querySelector('.detail-share .whatsapp').href = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            document.querySelector('.detail-share .linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ===== إغلاق تفاصيل المدونة =====
+        document.getElementById('closeBlogDetail').addEventListener('click', function() {
+            document.getElementById('blogDetailModal').classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        document.getElementById('blogDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ===== ESC لإغلاق المودال =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('blogDetailModal').classList.remove('show');
+                document.getElementById('authModal').classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ===== نظام المصادقة =====
+        class AuthSystem {
+            constructor() {
+                this.users = JSON.parse(localStorage.getItem('users') || '[]');
+                this.currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+                this.init();
+            }
+
+            init() {
+                if (this.users.length === 0) {
+                    this.users.push({
+                        id: 1,
+                        name: 'أحمد محمد',
+                        email: 'admin@med-care.com',
+                        password: '123456',
+                        role: 'admin',
+                        createdAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('users', JSON.stringify(this.users));
+                }
+                this.updateUI();
+            }
+
+            register(name, email, password) {
+                if (this.users.find(u => u.email === email)) {
+                    return { success: false, message: 'البريد الإلكتروني مستخدم بالفعل' };
+                }
+                const user = {
+                    id: Date.now(),
+                    name,
+                    email,
+                    password,
+                    role: 'patient',
+                    createdAt: new Date().toISOString()
+                };
+                this.users.push(user);
+                localStorage.setItem('users', JSON.stringify(this.users));
+                return { success: true, message: 'تم التسجيل بنجاح' };
+            }
+
+            login(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                if (!user) {
+                    return { success: false, message: 'بيانات الدخول غير صحيحة' };
+                }
+                this.currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                this.updateUI();
+                return { success: true, user };
+            }
+
+            logout() {
+                this.currentUser = null;
+                sessionStorage.removeItem('currentUser');
+                this.updateUI();
+            }
+
+            getCurrentUser() {
+                return this.currentUser;
+            }
+
+            isLoggedIn() {
+                return !!this.currentUser;
+            }
+
+            updateUI() {
+                const loginBtn = document.getElementById('loginBtn');
+                if (this.isLoggedIn()) {
+                    loginBtn.innerHTML = `<i class="fas fa-user"></i> ${this.currentUser.name} <i class="fas fa-chevron-down"></i>`;
+                    loginBtn.onclick = (e) => {
+                        e.preventDefault();
+                        if (confirm('هل تريد تسجيل الخروج؟')) {
+                            this.logout();
+                            Swal.fire('تم تسجيل الخروج', 'نراكم قريباً', 'success');
+                        }
+                    };
+                } else {
+                    loginBtn.innerHTML = `<i class="fas fa-user"></i> تسجيل الدخول`;
+                    loginBtn.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById('authModal').classList.add('show');
+                    };
+                }
+            }
+        }
+
+        const auth = new AuthSystem();
+
+        // ===== مودال تسجيل الدخول =====
+        const authModal = document.getElementById('authModal');
+        const closeModal = document.getElementById('closeModal');
+        const toggleAuth = document.getElementById('toggleAuth');
+        const authTitle = document.getElementById('authTitle');
+        const authSubmitBtn = document.getElementById('authSubmitBtn');
+        const authName = document.getElementById('authName');
+        let isLogin = true;
+
+        closeModal.addEventListener('click', () => {
+            authModal.classList.remove('show');
+        });
+
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.classList.remove('show');
+            }
+        });
+
+        toggleAuth.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLogin = !isLogin;
+            if (isLogin) {
+                authTitle.textContent = 'تسجيل الدخول';
+                authSubmitBtn.textContent = 'تسجيل الدخول';
+                toggleAuth.textContent = 'ليس لديك حساب؟ سجل الآن';
+                authName.style.display = 'none';
+                authName.required = false;
+            } else {
+                authTitle.textContent = 'إنشاء حساب جديد';
+                authSubmitBtn.textContent = 'إنشاء حساب';
+                toggleAuth.textContent = 'لديك حساب؟ تسجيل الدخول';
+                authName.style.display = 'block';
+                authName.required = true;
+            }
+        });
+
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+
+            if (isLogin) {
+                const result = auth.login(email, password);
+                if (result.success) {
+                    Swal.fire('مرحباً!', `أهلاً بك ${result.user.name}`, 'success');
+                    authModal.classList.remove('show');
+                    this.reset();
+                } else {
+                    Swal.fire('خطأ', result.message, 'error');
+                }
+            } else {
+                const name = document.getElementById('authName').value;
+                if (!name) {
+                    Swal.fire('خطأ', 'الرجاء إدخال الاسم الكامل', 'error');
+                    return;
+                }
+                const result = auth.register(name, email, password);
+                if (result.success) {
+                    Swal.fire('تم التسجيل', result.message, 'success');
+                    isLogin = true;
+                    authTitle.textContent = 'تسجيل الدخول';
+                    authSubmitBtn.textContent = 'تسجيل الدخول';
+                    toggleAuth.textContent = 'ليس لديك حساب؟ سجل الآن';
+                    authName.style.display = 'none';
+                    authName.required = false;
+                    this.reset();
+                } else {
+                    Swal.fire('خطأ', result.message, 'error');
+                }
+            }
+        });
+
+        // ===== الوضع الداكن =====
+        const darkToggle = document.getElementById('darkToggle');
+        const darkLabel = document.getElementById('darkLabel');
+        darkToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            darkLabel.textContent = isDark ? 'فاتح' : 'داكن';
+            darkToggle.innerHTML = isDark ?
+                '<i class="fas fa-sun"></i> <span id="darkLabel">فاتح</span>' :
+                '<i class="fas fa-moon"></i> <span id="darkLabel">داكن</span>';
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkLabel.textContent = 'فاتح';
+            darkToggle.innerHTML = '<i class="fas fa-sun"></i> <span id="darkLabel">فاتح</span>';
+        }
+
+        // ===== همبرغر =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('open');
+        });
+
+        // ===== تصفية الخدمات =====
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.classList.remove('hidden-card');
+                    } else {
+                        card.classList.add('hidden-card');
+                    }
+                });
+            });
+        });
+
+        // ===== نموذج الحجز =====
+        const form = document.getElementById('bookingForm');
+        const fullName = document.getElementById('fullName');
+        const phone = document.getElementById('phone');
+        const email = document.getElementById('email');
+        const specialty = document.getElementById('specialty');
+        const appointmentTime = document.getElementById('appointmentTime');
+        const nameError = document.getElementById('nameError');
+        const phoneError = document.getElementById('phoneError');
+        const emailError = document.getElementById('emailError');
+        const specialtyError = document.getElementById('specialtyError');
+        const timeError = document.getElementById('timeError');
+        const successMsg = document.getElementById('successMsg');
+
+        function showError(input, errorEl) {
+            errorEl.classList.add('show');
+            input.style.borderColor = '#e53e3e';
+        }
+
+        function hideError(input, errorEl) {
+            errorEl.classList.remove('show');
+            input.style.borderColor = '#e2e8f0';
+        }
+
+        function isValidPhone(val) {
+            return /^[0-9]{10,15}$/.test(val.replace(/\s/g, ''));
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            if (!fullName.value.trim()) {
+                showError(fullName, nameError);
+                valid = false;
+            } else {
+                hideError(fullName, nameError);
+            }
+
+            if (!isValidPhone(phone.value.trim())) {
+                showError(phone, phoneError);
+                valid = false;
+            } else {
+                hideError(phone, phoneError);
+            }
+
+            const emailVal = email.value.trim();
+            if (!emailVal || !emailVal.includes('@') || !emailVal.includes('.')) {
+                showError(email, emailError);
+                valid = false;
+            } else {
+                hideError(email, emailError);
+            }
+
+            if (!specialty.value) {
+                showError(specialty, specialtyError);
+                valid = false;
+            } else {
+                hideError(specialty, specialtyError);
+            }
+
+            if (!appointmentTime.value) {
+                showError(appointmentTime, timeError);
+                valid = false;
+            } else {
+                hideError(appointmentTime, timeError);
+            }
+
+            if (valid) {
+                const booking = {
+                    id: Date.now(),
+                    fullName: fullName.value,
+                    phone: phone.value,
+                    email: email.value,
+                    specialty: specialty.value,
+                    doctor: document.getElementById('doctorSelect').value || 'غير محدد',
+                    time: appointmentTime.value,
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                };
+
+                let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                bookings.push(booking);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+
+                successMsg.classList.add('show');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم الحجز بنجاح!',
+                    text: 'سيتم التواصل معك لتأكيد الموعد خلال 24 ساعة.',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+
+                setTimeout(() => {
+                    form.reset();
+                    successMsg.classList.remove('show');
+                }, 3000);
+            } else {
+                successMsg.classList.remove('show');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ في البيانات',
+                    text: 'الرجاء التأكد من صحة جميع الحقول',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+        });
+
+        // ===== الأسئلة الشائعة =====
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+
+        // ===== عداد إحصائي =====
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 60;
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                }
+                element.textContent = Math.round(current);
+            }, 25);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statItems = document.querySelectorAll('.stat-item');
+                    statItems.forEach((item, index) => {
+                        const target = parseInt(item.dataset.count);
+                        const element = document.querySelectorAll('.stat-item .number')[index];
+                        if (element && element.textContent === '0') {
+                            animateCounter(element, target);
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) observer.observe(heroSection);
+
+        // ===== شات مباشر =====
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendChat = document.getElementById('sendChat');
+        const chatMessages = document.getElementById('chatMessages');
+
+        chatToggle.addEventListener('click', function() {
+            chatWindow.classList.toggle('open');
+        });
+
+        closeChat.addEventListener('click', function() {
+            chatWindow.classList.remove('open');
+        });
+
+        function sendMessage() {
+            const msg = chatInput.value.trim();
+            if (!msg) return;
+            chatMessages.innerHTML += `<div class="message user">${msg}</div>`;
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                const responses = [
+                    'شكراً لتواصلك! سنقوم بالرد عليك قريباً.',
+                    'هل تحتاج مساعدة إضافية؟',
+                    'نحن هنا لخدمتك دائماً.',
+                    'سيتم التواصل معك في أقرب وقت.',
+                    'يمكنك حجز موعد من خلال النموذج المخصص.'
+                ];
+                const reply = responses[Math.floor(Math.random() * responses.length)];
+                chatMessages.innerHTML += `<div class="message bot">${reply}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        sendChat.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // ===== زر العودة للأعلى =====
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== بحث متقدم =====
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.classList.remove('hidden-card');
+                } else if (query.length > 0) {
+                    card.classList.add('hidden-card');
+                } else {
+                    const activeFilter = document.querySelector('.filter-btn.active');
+                    if (activeFilter) {
+                        const filter = activeFilter.dataset.filter;
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.classList.remove('hidden-card');
+                        } else {
+                            card.classList.add('hidden-card');
+                        }
+                    }
+                }
+            });
+        });
+
+        // ===== تنقل سلس =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    navLinks.classList.remove('open');
+                }
+            });
+        });
+
+        // ===== النشرة البريدية =====
+        window.subscribeNewsletter = function() {
+            const email = document.getElementById('newsletterEmail').value;
+            if (!email || !email.includes('@')) {
+                Swal.fire('خطأ', 'الرجاء إدخال بريد إلكتروني صحيح', 'error');
+                return;
+            }
+            let subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
+            if (subscribers.includes(email)) {
+                Swal.fire('مشترك بالفعل', 'هذا البريد مشترك في النشرة البريدية', 'info');
+                return;
+            }
+            subscribers.push(email);
+            localStorage.setItem('subscribers', JSON.stringify(subscribers));
+            Swal.fire('شكراً لك!', 'تم الاشتراك في النشرة البريدية بنجاح', 'success');
+            document.getElementById('newsletterEmail').value = '';
+        };
+
+        // ===== عرض المدونة عند التحميل =====
+        renderBlog();
+
+        console.log('🚀 MED-CARE متكامل يعمل بنجاح');
+        console.log('👥 عدد المستخدمين:', auth.users.length);
+        console.log('📅 عدد الحجوزات:', JSON.parse(localStorage.getItem('bookings') || '[]').length);
+        console.log('📧 المشتركين في النشرة:', JSON.parse(localStorage.getItem('subscribers') || '[]').length);
+        console.log('📝 عدد المقالات:', blogPosts.length);
+    </script>
+</body>
+</html>
